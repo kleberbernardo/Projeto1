@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>TaskList</title>
+<script type="text/javascript"
+src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#teste").load('ler.php');
+		
+		$("#botao").click(function() {
+			var dados = $("#dados").val();
+			$.ajax({
+				type: "POST",
+				url: 'insere.php',
+				data: 'task=' + dados,
+				complete: function(data){
+					$("#teste").load('ler.php');
+				}
+			});
+		});
+		
+		$(".remover").live('click', function(){
+			var id = $(this).attr('id');
+			$.ajax({
+				type: "POST",
+				url: 'remover.php',
+				data: 'id=' + id,
+				complete: function(data){
+					$("#teste").load('ler.php');
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+
+<input type="text" id="dados" />
+<input type="button" value="Ok" id="botao">
+<br /><br /><hr/>
+<h3>Task List</h3>
+
+<ul id="teste"></ul>
+
+
+
+</body>
+</html>
